@@ -25,7 +25,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  min-width: 220px;
+  min-width: 250px;
 }
 
 .logo {
@@ -41,64 +41,146 @@
   line-height: 1.1;
 }
 
-.versionBadge {
-  font-size: 0.65rem;
-  background-color: var(--primary-light);
-  color: var(--primary);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
+.authorBadge {
+  font-size: 32px !important;
+  color: var(--secondary);
   font-weight: 700;
+  display: block;
+  margin-top: 0.25rem;
+  line-height: 1.2;
 }
 
 /* Project Meta Info */
-.projectInfo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 480px;
-}
-
-.projectTitleRow {
+.projectWrapper {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.75rem;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  position: relative;
+  max-width: 540px;
+  flex: 1;
 }
 
-.projectLabel {
+.projectMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+.projectSelectorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.125rem;
+}
+
+.projectSelectDropdown {
+  flex: 1;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.newProjectBtn {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
   font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.newProjectBtn:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.projectTitleRow, .projectLocationRow {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.projectLabel, .projectLocationLabel {
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--secondary);
   text-transform: uppercase;
+  white-space: nowrap;
+  min-width: 55px;
 }
 
-.projectNameInput {
+.projectNameInput, .projectLocationInput {
   flex: 1;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 750;
   border: 1px solid transparent;
   background: transparent;
   padding: 0.125rem 0.25rem;
   color: var(--foreground);
+  outline: none;
 }
 
-.projectNameInput:hover {
+.projectNameInput:hover, .projectLocationInput:hover {
   border-color: var(--border);
-  background-color: var(--background);
+  background-color: var(--card-background);
 }
 
-.projectNameInput:focus {
+.projectNameInput:focus, .projectLocationInput:focus {
   border-color: var(--primary);
   background-color: var(--card-background);
 }
 
-.projectLocation {
-  font-size: 0.75rem;
-  color: var(--secondary);
-  margin-top: 0.125rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.saveProjectBtn {
+  background-color: var(--success);
+  color: #ffffff;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.2s ease;
+}
+
+.saveProjectBtn:hover {
+  background-color: #059669;
+}
+
+.saveToast {
+  position: absolute;
+  bottom: -22px;
+  right: 15px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--success);
+  animation: fadeIn 0.2s ease-out;
+  background-color: var(--card-background);
+  padding: 0 4px;
+  border-radius: 4px;
 }
 
 /* Tabs navigation */

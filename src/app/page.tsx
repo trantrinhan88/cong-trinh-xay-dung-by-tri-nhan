@@ -106,6 +106,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([sampleProject]);
   const [activeProjectId, setActiveProjectId] = useState<string>('proj_sample');
   const [activeMeasurement, setActiveMeasurement] = useState<{ label: string; value: number } | null>(null);
+  const [showSaveToast, setShowSaveToast] = useState(false);
 
   // 1. Tải dữ liệu từ LocalStorage khi khởi chạy
   useEffect(() => {
@@ -267,6 +268,60 @@ export default function Dashboard() {
     return activeProject;
   };
 
+  const handleCreateNewProject = () => {
+    const newProjId = 'proj_' + Date.now();
+    const newProject: Project = {
+      id: newProjId,
+      name: 'Dự án mới ' + (projects.length + 1),
+      location: 'Chưa nhập địa chỉ',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      drawings: [
+        {
+          id: 'drawing_mong',
+          name: 'Mặt bằng kết cấu Móng',
+          url: '',
+          scale: 50.0,
+          measurements: [],
+        },
+        {
+          id: 'drawing_tuong',
+          name: 'Mặt bằng xây dựng Tầng 1',
+          url: '',
+          scale: 40.0,
+          measurements: [],
+        },
+        {
+          id: 'drawing_dam',
+          name: 'Chi tiết cốt thép Dầm D1',
+          url: '',
+          scale: 60.0,
+          measurements: [],
+        },
+      ],
+      activeDrawingId: 'drawing_mong',
+      boqItems: [],
+    };
+
+    const updatedProjects = [...projects, newProject];
+    setProjects(updatedProjects);
+    setActiveProjectId(newProjId);
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ai_boq_projects', JSON.stringify(updatedProjects));
+      localStorage.setItem('ai_boq_active_project_id', newProjId);
+    }
+  };
+
+  const handleSaveAllChanges = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ai_boq_projects', JSON.stringify(projects));
+      localStorage.setItem('ai_boq_materials', JSON.stringify(materials));
+      setShowSaveToast(true);
+      setTimeout(() => setShowSaveToast(false), 2000);
+    }
+  };
+
   return (
     <div className={styles.appContainer}>
       {/* Thanh Header chính */}
@@ -274,26 +329,61 @@ export default function Dashboard() {
         <div className={styles.brand}>
           <span className={styles.logo}>🏛️</span>
           <div>
-            <h1>AI-BOQ ESTIMATOR</h1>
-            <span className={styles.versionBadge}>v2.5 (Pro)</span>
+            <h1>Hỗ trợ tính chi phí công trình xây dựng</h1>
+            <span className={styles.authorBadge}>Tác giả: Trần Trí Nhân</span>
           </div>
         </div>
 
         {/* Thông tin công trình hiện tại */}
-        <div className={styles.projectInfo}>
-          <div className={styles.projectTitleRow}>
-            <span className={styles.projectLabel}>📍 Dự án:</span>
-            <input
-              type="text"
-              value={activeProject.name}
-              onChange={(e) => updateActiveProject({ ...activeProject, name: e.target.value })}
-              className={styles.projectNameInput}
-              title="Nhấp để đổi tên dự án"
-            />
+        <div className={styles.projectWrapper}>
+          <div className={styles.projectMain}>
+            <div className={styles.projectSelectorRow}>
+              <select
+                value={activeProjectId}
+                onChange={(e) => setActiveProjectId(e.target.value)}
+                className={styles.projectSelectDropdown}
+                title="Chọn dự án đang làm việc"
+              >
+                {projects.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    📁 {p.name}
+                  </option>
+                ))}
+              </select>
+              <button className={styles.newProjectBtn} onClick={handleCreateNewProject} title="Tạo dự án mới">
+                ➕ Tạo mới
+              </button>
+            </div>
+
+            <div className={styles.projectInfo}>
+              <div className={styles.projectTitleRow}>
+                <span className={styles.projectLabel}>📍 Dự án:</span>
+                <input
+                  type="text"
+                  value={activeProject.name}
+                  onChange={(e) => updateActiveProject({ ...activeProject, name: e.target.value })}
+                  className={styles.projectNameInput}
+                  placeholder="Nhập tên dự án..."
+                  title="Nhập tên dự án"
+                />
+              </div>
+              <div className={styles.projectLocationRow}>
+                <span className={styles.projectLocationLabel}>🏢 Địa chỉ:</span>
+                <input
+                  type="text"
+                  value={activeProject.location || ''}
+                  onChange={(e) => updateActiveProject({ ...activeProject, location: e.target.value })}
+                  className={styles.projectLocationInput}
+                  placeholder="Nhập địa chỉ công trình..."
+                  title="Nhập địa chỉ"
+                />
+              </div>
+            </div>
           </div>
-          <p className={styles.projectLocation}>
-            🗺️ {activeProject.location || 'Chưa nhập địa điểm xây dựng'}
-          </p>
+          <button className={styles.saveProjectBtn} onClick={handleSaveAllChanges} title="Lưu thay đổi toàn bộ dự án">
+            💾 Lưu
+          </button>
+          {showSaveToast && <span className={styles.saveToast}>Đã lưu! ✓</span>}
         </div>
 
         {/* Thanh chuyển Tab */}
