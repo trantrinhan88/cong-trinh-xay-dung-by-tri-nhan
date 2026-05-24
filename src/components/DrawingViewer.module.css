@@ -1,0 +1,360 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.drawingSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.drawingSelector label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.drawingSelector select {
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+}
+
+.uploadBtn {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.uploadBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.zoomControls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem;
+}
+
+.zoomControls button {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.zoomControls button:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.zoomLabel {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0 0.5rem;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  background-color: var(--background);
+  padding: 0.375rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.toolBtn {
+  background: transparent;
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.toolBtn:hover {
+  background-color: var(--border);
+  color: var(--foreground);
+}
+
+.activeTool {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+/* Scale Indicator */
+.scaleIndicator {
+  font-size: 0.75rem;
+  color: var(--secondary);
+  background-color: var(--background);
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  border-left: 3px solid var(--primary);
+}
+
+/* Canvas Area */
+.canvasContainer {
+  width: 100%;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: #f1f5f9; /* Engineering light blueprint color */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 350px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .canvasContainer {
+    background-color: #0b0f19; /* Dark blueprint color */
+  }
+}
+
+.canvas {
+  background-color: transparent;
+  display: block;
+}
+
+.grab { cursor: grab; }
+.grabbing { cursor: grabbing; }
+.crosshair { cursor: crosshair; }
+
+/* Measurements list */
+.measurementsSection {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.measurementsSection h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.measurementsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.measItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.825rem;
+}
+
+.measColorIndicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.measInfo {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.measLabelInput {
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  width: 150px;
+}
+
+.measLabelInput:hover {
+  border-color: var(--border);
+  background-color: var(--card-background);
+}
+
+.measLabelInput:focus {
+  border-color: var(--primary);
+  background-color: var(--card-background);
+}
+
+.measValue {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.measActions {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.useBtn {
+  background-color: var(--success-light);
+  color: var(--success);
+  border: 1px solid var(--success);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.useBtn:hover {
+  background-color: var(--success);
+  color: #ffffff;
+}
+
+.deleteMeasBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+}
+
+.deleteMeasBtn:hover {
+  background-color: var(--danger-light);
+  border-color: var(--danger);
+}
+
+.emptyMeas {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* Modal for calibration */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background-color: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.modal p {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.modalHelp {
+  font-size: 0.75rem;
+  color: var(--secondary);
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.modalSaveBtn {
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.modalSaveBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+.modalCancelBtn {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.modalCancelBtn:hover {
+  background-color: var(--border-hover);
+}
