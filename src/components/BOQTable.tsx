@@ -20,6 +20,14 @@ export default function BOQTable({
 }: BOQTableProps) {
   const [activeRowId, setActiveRowId] = useState<string | null>(null);
 
+  // Tự động điều chỉnh chiều cao của textarea để hiển thị đầy đủ chữ
+  const adjustHeight = (el: HTMLTextAreaElement | null) => {
+    if (el) {
+      el.style.height = 'auto';
+      el.style.height = `${el.scrollHeight}px`;
+    }
+  };
+
   // Helper tìm kiếm vật tư liên kết
   const getMaterial = (materialId?: string): Material | undefined => {
     if (!materialId) return undefined;
@@ -184,11 +192,11 @@ export default function BOQTable({
             <tr>
               <th style={{ width: '80px' }}>Mã hiệu</th>
               <th style={{ width: '220px' }}>Tên hạng mục công việc</th>
-              <th style={{ width: '280px' }}>Diễn giải công thức tính toán</th>
-              <th style={{ width: '85px', textAlign: 'right' }}>Số lượng</th>
-              <th style={{ width: '100px' }}>Đơn vị</th>
-              <th style={{ width: '180px' }}>Vật tư liên kết</th>
-              <th style={{ width: '120px', textAlign: 'right' }}>Đơn giá (VND)</th>
+              <th style={{ width: '260px' }}>Diễn giải công thức tính toán</th>
+              <th style={{ width: '80px', textAlign: 'right' }}>Số lượng</th>
+              <th style={{ width: '70px', textAlign: 'center' }}>Đơn vị</th>
+              <th style={{ width: '200px' }}>Vật tư liên kết</th>
+              <th style={{ width: '140px', textAlign: 'right' }}>Đơn giá (VND)</th>
               <th style={{ width: '140px', textAlign: 'right' }}>Thành tiền (VND)</th>
               <th style={{ width: '90px', textAlign: 'center' }}>Thao tác</th>
             </tr>
@@ -225,28 +233,30 @@ export default function BOQTable({
 
                     {/* Tên công việc */}
                     <td>
-                      <input
-                        type="text"
+                      <textarea
                         value={item.descriptionName}
                         onChange={(e) =>
                           handleCellChange(item.id, 'descriptionName', e.target.value)
                         }
                         placeholder="Nhập tên hạng mục..."
-                        className={`${styles.cellInput} ${styles.boldText}`}
+                        className={`${styles.cellTextarea} ${styles.boldText}`}
+                        rows={1}
+                        ref={adjustHeight}
                       />
                     </td>
 
                     {/* Diễn giải công thức */}
                     <td>
                       <div className={styles.formulaWrapper}>
-                        <input
-                          type="text"
+                        <textarea
                           value={item.explanationFormula}
                           onChange={(e) =>
                             handleCellChange(item.id, 'explanationFormula', e.target.value)
                           }
                           placeholder="Móng M1: 2 * 3.5 * 1.2 * 0.4"
-                          className={`${styles.cellInput} ${styles.mono}`}
+                          className={`${styles.cellTextarea} ${styles.mono}`}
+                          rows={1}
+                          ref={adjustHeight}
                         />
                         {activeMeasurement && (
                           <button
